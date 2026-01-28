@@ -1,75 +1,91 @@
-# React + TypeScript + Vite
+# Nearby Labs - Development Consulting Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive website for Nearby Labs, showcasing development consulting services for startups. Built with React, TypeScript, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** - UI library with React Compiler enabled
+- **TypeScript** - Type-safe development
+- **Vite** (Rolldown) - Fast build tool and dev server
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **Framer Motion** - Animation library
+- **Radix UI** - Accessible component primitives
+- **Embla Carousel** - Carousel component
+- **Lucide React** - Icon library
+- **Biome** - Fast formatter and linter
 
-## React Compiler
+## 📦 Installation
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Install dependencies
+bun install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Start development server
+bun run dev
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build for production
+bun run build
+
+# Preview production build
+bun run preview
+
+# Run linter
+bun run lint
+
+# Check code formatting with Biome
+bun run biome:check
+
+# Fix code formatting with Biome
+bun run biome:fix
 ```
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── animations/    # Animation components (FadeIn, FloatingElement, etc.)
+│   ├── layout/        # Layout components (Header, Footer, Container)
+│   ├── sections/      # Page sections (Hero, Services, Work, etc.)
+│   └── ui/            # Reusable UI components (Button, Card, Input, etc.)
+├── lib/               # Utility functions
+├── App.tsx            # Main app component
+└── main.tsx           # Entry point
+```
+
+## ✨ Features
+
+- **Responsive Design** - Mobile-first approach with Tailwind CSS
+- **Smooth Animations** - Framer Motion powered transitions
+- **Accessible Components** - Built with Radix UI primitives
+- **Modern UI** - Clean, professional design
+- **Performance Optimized** - React Compiler for automatic optimizations
+- **Type Safe** - Full TypeScript coverage
+
+## 🎨 Sections
+
+- **Hero** - Main landing section with CTA
+- **Trust Logos** - Client/partner showcase
+- **Services** - Service offerings
+- **Work** - Portfolio/project showcase
+- **Process** - Development workflow
+- **Testimonials** - Client testimonials carousel
+- **Stats** - Key metrics
+- **FAQ** - Frequently asked questions
+- **CTA** - Call-to-action section
+
+## 🔧 Configuration
+
+- **Vite Config** - `vite.config.ts`
+- **TypeScript** - `tsconfig.json`, `tsconfig.app.json`, `tsconfig.node.json`
+- **ESLint** - `eslint.config.js`
+- **Biome** - `biome.json`
+- **Tailwind** - Configured via Vite plugin
+
+## 📝 License
+
+Private project - All rights reserved
