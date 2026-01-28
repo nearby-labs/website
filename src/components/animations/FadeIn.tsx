@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { type ReactNode, useRef } from "react";
+import { prefersReducedMotion } from "../../lib/utils";
 
 interface FadeInProps {
 	children: ReactNode;
@@ -20,6 +21,7 @@ export function FadeIn({
 }: FadeInProps) {
 	const ref = useRef(null);
 	const isInView = useInView(ref, { once, margin: "-50px" });
+	const reducedMotion = prefersReducedMotion();
 
 	const directions = {
 		up: { y: 30 },
@@ -28,6 +30,11 @@ export function FadeIn({
 		right: { x: -30 },
 		none: {},
 	};
+
+	// Skip animation if reduced motion is preferred
+	if (reducedMotion) {
+		return <div className={className}>{children}</div>;
+	}
 
 	return (
 		<motion.div
@@ -44,6 +51,7 @@ export function FadeIn({
 				ease: [0.25, 0.1, 0.25, 1],
 			}}
 			className={className}
+			style={{ willChange: "transform, opacity" }}
 		>
 			{children}
 		</motion.div>
@@ -63,6 +71,12 @@ export function StaggerContainer({
 }: StaggerContainerProps) {
 	const ref = useRef(null);
 	const isInView = useInView(ref, { once: true, margin: "-50px" });
+	const reducedMotion = prefersReducedMotion();
+
+	// Skip animation if reduced motion is preferred
+	if (reducedMotion) {
+		return <div className={className}>{children}</div>;
+	}
 
 	return (
 		<motion.div
@@ -90,6 +104,12 @@ export function StaggerItem({
 	children: ReactNode;
 	className?: string;
 }) {
+	const reducedMotion = prefersReducedMotion();
+
+	if (reducedMotion) {
+		return <div className={className}>{children}</div>;
+	}
+
 	return (
 		<motion.div
 			variants={{
@@ -104,6 +124,7 @@ export function StaggerItem({
 				},
 			}}
 			className={className}
+			style={{ willChange: "transform, opacity" }}
 		>
 			{children}
 		</motion.div>

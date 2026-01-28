@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { throttle } from "../../lib/utils";
 import { AnimatedBackground } from "../animations/AnimatedBackground";
 import { FadeIn } from "../animations/FadeIn";
 import { Container } from "../layout/Container";
@@ -12,14 +13,14 @@ export function Hero() {
 	const [email, setEmail] = useState("");
 
 	useEffect(() => {
-		const handleScroll = () => {
+		const handleScroll = throttle(() => {
 			const scrollY = window.scrollY;
 			if (scrollY > 100) {
 				setShowScrollIndicator(false);
 			} else {
 				setShowScrollIndicator(true);
 			}
-		};
+		}, 100); // Throttle to max once per 100ms
 
 		window.addEventListener("scroll", handleScroll, { passive: true });
 		return () => window.removeEventListener("scroll", handleScroll);
@@ -125,16 +126,19 @@ export function Hero() {
 				animate={{ opacity: showScrollIndicator ? 1 : 0 }}
 				transition={{ duration: 0.3 }}
 				className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+				style={{ willChange: "opacity" }}
 			>
 				<motion.div
 					animate={{ y: [0, 8, 0] }}
 					transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
 					className="w-6 h-10 rounded-full border border-white/20 flex justify-center pt-2 bg-[#0a0a0a]/50 backdrop-blur-sm"
+					style={{ willChange: "transform" }}
 				>
 					<motion.div
 						animate={{ opacity: [1, 0.3, 1], y: [0, 8, 0] }}
 						transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
 						className="w-1 h-1 rounded-full bg-[#F1A015]"
+						style={{ willChange: "transform, opacity" }}
 					/>
 				</motion.div>
 			</motion.div>

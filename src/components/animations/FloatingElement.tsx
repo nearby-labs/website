@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { prefersReducedMotion } from "../../lib/utils";
 
 interface FloatingElementProps {
 	children: ReactNode;
@@ -14,6 +15,13 @@ export function FloatingElement({
 	animation = "float",
 	delay = 0,
 }: FloatingElementProps) {
+	const reducedMotion = prefersReducedMotion();
+
+	// Disable animations if user prefers reduced motion
+	if (reducedMotion) {
+		return <div className={className}>{children}</div>;
+	}
+
 	const animations = {
 		float: {
 			y: [0, -20, 0],
@@ -41,6 +49,7 @@ export function FloatingElement({
 				delay,
 			}}
 			className={className}
+			style={{ willChange: "transform" }}
 		>
 			{children}
 		</motion.div>
@@ -53,11 +62,20 @@ interface GradientOrbProps {
 }
 
 export function GradientOrb({ className, color = "mixed" }: GradientOrbProps) {
+	const reducedMotion = prefersReducedMotion();
 	const colors = {
 		blue: "from-blue-500/30 to-blue-600/10",
 		purple: "from-purple-500/30 to-purple-600/10",
 		mixed: "from-blue-500/20 via-purple-500/20 to-blue-600/10",
 	};
+
+	if (reducedMotion) {
+		return (
+			<div
+				className={`absolute rounded-full blur-3xl bg-gradient-to-br ${colors[color]} ${className}`}
+			/>
+		);
+	}
 
 	return (
 		<motion.div
@@ -72,6 +90,7 @@ export function GradientOrb({ className, color = "mixed" }: GradientOrbProps) {
 				repeat: Infinity,
 			}}
 			className={`absolute rounded-full blur-3xl bg-gradient-to-br ${colors[color]} ${className}`}
+			style={{ willChange: "transform" }}
 		/>
 	);
 }

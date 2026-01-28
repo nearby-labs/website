@@ -34,6 +34,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    will-change: background-position;
   }
 
   .gradient-gold {
@@ -45,6 +46,11 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Optimize for mobile - reduce blur on small screens */
+    @media (max-width: 768px) {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
   }
 
   .glass-card {
@@ -55,6 +61,11 @@
     );
     border: 1px solid rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(10px);
+    /* Optimize for mobile */
+    @media (max-width: 768px) {
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
   }
 
   .text-balance {
@@ -129,9 +140,36 @@
   animation: gradient-shift 8s ease infinite;
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling - disable on mobile for better performance */
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Performance optimizations */
+* {
+  /* Use GPU acceleration for transforms */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize images */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Reduce repaints on mobile */
+@media (max-width: 768px) {
+  * {
+    /* Reduce expensive effects on mobile */
+    text-rendering: optimizeSpeed;
+  }
 }
 
 /* Custom scrollbar */

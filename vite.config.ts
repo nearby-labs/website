@@ -12,4 +12,27 @@ export default defineConfig({
 			},
 		}),
 	],
+	build: {
+		// Optimize for mobile performance
+		cssCodeSplit: true,
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					// Split framer-motion into separate chunk (large library)
+					"framer-motion": ["framer-motion"],
+					// Split UI components
+					"ui-components": [
+						"@radix-ui/react-accordion",
+						"@radix-ui/react-dialog",
+					],
+				},
+			},
+		},
+		// Optimize chunk size
+		chunkSizeWarningLimit: 1000,
+	},
+	// Optimize dependencies
+	optimizeDeps: {
+		include: ["react", "react-dom", "framer-motion"],
+	},
 });
