@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { throttle } from "../../lib/utils";
 import { AnimatedBackground } from "../animations/AnimatedBackground";
 import { FadeIn } from "../animations/FadeIn";

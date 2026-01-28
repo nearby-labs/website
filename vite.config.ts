@@ -17,14 +17,18 @@ export default defineConfig({
 		cssCodeSplit: true,
 		rollupOptions: {
 			output: {
-				manualChunks: {
+				manualChunks(id) {
 					// Split framer-motion into separate chunk (large library)
-					"framer-motion": ["framer-motion"],
+					if (id.includes("framer-motion")) {
+						return "framer-motion";
+					}
 					// Split UI components
-					"ui-components": [
-						"@radix-ui/react-accordion",
-						"@radix-ui/react-dialog",
-					],
+					if (
+						id.includes("@radix-ui/react-accordion") ||
+						id.includes("@radix-ui/react-dialog")
+					) {
+						return "ui-components";
+					}
 				},
 			},
 		},
